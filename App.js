@@ -1,43 +1,114 @@
+import { View, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { View, Text } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "./Screens/HomeScreen";
-import AboutScreen from "./Screens/AboutScreen";
-// import FirstPage from "./screens/FirstPage";
-// import SecondPage from "./screens/SecondPage";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import FirstPage from "./pages/FirstPage";
+import SecondPage from "./pages/SecondPage.js";
+import ThirdPage from "./pages/ThirdPage";
+import CustomSidebarMenu from "./pages/CustomSidebarMenu";
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
-const App = () => {
+const NavigationDrawerStructure = (props) => {
+  const toggleDrawer = () => {
+    props.navigationProps.toggleDrawer();
+  };
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initailRouteName="Home"
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: "#C45",
-          },
-          headerTintColor: "#fff",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-        }}
-      >
-        <Stack.Screen
-          name="HomeScreen"
-          component={HomeScreen}
-          options={{ title: "Home" }}
+    <View style={{ flexDirection: "row" }}>
+      <TouchableOpacity onPress={() => toggleDrawer()}>
+        <Image
+          source={require("./assets/drawerWhite.png")}
+          style={{ width: 25, height: 25, marginLeft: 5 }}
         />
-        <Stack.Screen
-          name="AboutScreen"
-          component={AboutScreen}
-          options={{ title: "About" }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+      </TouchableOpacity>
+    </View>
   );
 };
+
+function firstScreenStack({ navigation }) {
+  return (
+    <Stack.Navigator
+      initialRouteName="FirstPage"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#3B9C9C",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+        headerLeft: () => (
+          <NavigationDrawerStructure navigationProps={navigation} />
+        ),
+      }}
+    >
+      <Stack.Screen
+        name="FirstPage"
+        component={FirstPage}
+        options={{ title: "First Page" }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function secondScreenStack({ navigation }) {
+  return (
+    <Stack.Navigator
+      initialRouteName="FirstPage"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#3B9C9C",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+        headerLeft: () => (
+          <NavigationDrawerStructure navigationProps={navigation} />
+        ),
+      }}
+    >
+      <Stack.Screen
+        name="SecondPage"
+        component={SecondPage}
+        options={{ title: "Second Page" }}
+      />
+      <Stack.Screen
+        name="ThirdPage"
+        component={ThirdPage}
+        options={{ title: "Third Page" }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator
+        drawerContentOptions={{
+          activeTintColor: "#e91263",
+          itemStyle: { marginVertical: 5 },
+        }}
+        drawerContent = {(props)=> <CustomSidebarMenu {...props}/> }
+      >
+        
+        <Drawer.Screen
+          name="FirstPage"
+          component={firstScreenStack}
+          options={{ drawerLabel: "First page Option" }}
+        />
+        <Drawer.Screen
+          name="SecondPage"
+          component={secondScreenStack}
+          options={{ drawerLabel: "Second page Option" }}
+        />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
 
 export default App;

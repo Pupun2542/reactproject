@@ -12,8 +12,8 @@ import {
 } from "react-navigation-header-buttons";
 
 const IoniconsHeaderButton = (props) => (
-  // the props here come from <Item ... />
-  // you may access them and pass something else to HeaderButton if you like
+  // the `props` here come from <Item ... />
+  // you may access them and pass something else to `HeaderButton` if you like
   <HeaderButton IconComponent={Ionicons} iconSize={23} {...props} />
 );
 
