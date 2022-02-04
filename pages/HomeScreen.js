@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
-import AboutScreen from "./AboutScreen";
+// import AboutScreen from "./AboutScreen";
 import { Ionicons } from '@expo/vector-icons';
 
 import {
@@ -48,7 +48,7 @@ const HomeScreen = ({ navigation }) => {
       <Button
         title="Go to About"
         onPress={() =>
-          navigation.push("About", { email: "tanchanok@tni.ac.th" })
+          alert("test")
         }
       />
     </View>
