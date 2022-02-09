@@ -39,13 +39,7 @@ const ProductScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Ionicons name="home-outline" size={30} color="#f4511e" />
-      <Text>หน้าหลัก</Text>
-      <Button
-        title="Go to About"
-        onPress={() =>
-          navigation.navigate('About', {email: 'on.patipan_st@tni.ac.th'})
-        }  
-      />
+      <Text>สินค้า</Text>
     </View>
   );
 };

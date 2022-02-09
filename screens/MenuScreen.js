@@ -14,14 +14,17 @@ import {
 } from "native-base";
 import React from "react";
 
-const MenuScreen = ( {navigation} ) => {
+const MenuScreen = ({ navigation }) => {
   return (
     <View>
       <Text style={styles.style}>MenuScreen</Text>
       <Content>
-        <ListItem icon
-            style={{marginBottom:10, marginTop:10}}
-            onPress={()=>{navigation.navigate("HomeStack")}}
+        <ListItem
+          icon
+          style={{ marginBottom: 10, marginTop: 10 }}
+          onPress={() => {
+            navigation.navigate("HomeStack");
+          }}
         >
           <Left>
             <Button style={{ backgroundColor: "#FF9501" }}>
@@ -35,7 +38,13 @@ const MenuScreen = ( {navigation} ) => {
             <Icon active name="arrow-forward" />
           </Right>
         </ListItem>
-        <ListItem icon>
+        <ListItem
+          icon
+          style={{ marginBottom: 10, marginTop: 10 }}
+          onPress={() => {
+            navigation.navigate("ProductStack");
+          }}
+        >
           <Left>
             <Button style={{ backgroundColor: "#007AFF" }}>
               <Icon active name="wifi" />
