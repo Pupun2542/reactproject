@@ -27,10 +27,11 @@ import {
   OverflowMenu,
 } from "react-navigation-header-buttons";
 import DetailScreen from "./screens/DetailScreen";
-import ProductScreen from "./screens/ProductScreen"
+import ProductScreen from "./screens/ProductScreen";
 import MenuScreen from "./screens/MenuScreen";
 import HomeScreen from "./screens/HomeScreen";
 import AboutScreen from "./screens/AboutScreen";
+import Register from "./screens/Register";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,69 +39,59 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 function HomeStack() {
-  return(
+  return (
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#0096DA',
+          backgroundColor: "#0096DA",
         },
-        headerTintColor: '#fff',
+        headerTintColor: "#fff",
         headerTitleStyle: {
           fontWeight: "bold",
         },
       }}
     >
-      <Stack.Screen 
-        name="Home"
-        component={HomeScreen}
-      />
+      <Stack.Screen name="Home" component={HomeScreen} />
 
-      <Stack.Screen 
-        name="About"
-        component={AboutScreen}
-      />
+      <Stack.Screen name="About" component={AboutScreen} />
+      <Stack.Screen name="Register" component={Register} />
     </Stack.Navigator>
-  )
+  );
 }
 
 function ProductStack() {
-  return(
+  return (
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#0096DA',
+          backgroundColor: "#0096DA",
         },
-        headerTintColor: '#fff',
+        headerTintColor: "#fff",
         headerTitleStyle: {
           fontWeight: "bold",
         },
       }}
     >
-      <Stack.Screen 
-        name="Product"
-        component={ProductScreen}
-      />
+      <Stack.Screen name="Product" component={ProductScreen} />
 
-      <Stack.Screen 
-        name="Detail"
-        component={DetailScreen}
-      />
+      <Stack.Screen name="Detail" component={DetailScreen} />
+      <Stack.Screen name="Register" component={Register} />
     </Stack.Navigator>
-  )
+  );
 }
 
 function App() {
   return (
-      <NavigationContainer>
-        <Drawer.Navigator
-          initialRouteName="HomeStack"
-          drawerPosition="left"
-          drawerContent={(props) => <MenuScreen {...props}/>}
-        >
-          <Drawer.Screen name="HomeStack" component={HomeStack}/>
-          <Drawer.Screen name="ProductStack" component={ProductStack}/>
-        </Drawer.Navigator>
-      </NavigationContainer>
+    <NavigationContainer>
+      <Drawer.Navigator
+        initialRouteName="HomeStack"
+        drawerPosition="left"
+        drawerContent={(props) => <MenuScreen {...props} />}
+      >
+        <Drawer.Screen name="HomeStack" component={HomeStack} />
+        <Drawer.Screen name="ProductStack" component={ProductStack} />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 }
 
