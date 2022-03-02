@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 import axios from "axios";
@@ -18,7 +18,6 @@ import {
 } from "native-base";
 
 const validateSchema = Yup.object().shape({
-  name: Yup.string().required("กรุณาป้อนชื่อ-สกุล"),
   email: Yup.string()
     .email("รูปแบบอีเมล์ไม่ถูกต้อง")
     .required("กรุณากรอกอีเมล์ใหม่"),
@@ -27,60 +26,49 @@ const validateSchema = Yup.object().shape({
     .required("กรุณาป้อนรหัสผ่านใหม่"),
 });
 
-const RegisterScreen = ({navigation}) => {
+const Loginscreen = ({ navigation }) => {
   return (
     <Container>
       <Content padder>
         <Formik
           //ค่าเริ่มต้นของข้อมูลโดยกำหนดให้ตรงกัน backend
           initialValues={{
-            name: "",
             email: "",
             password: "",
           }}
           validationSchema={validateSchema}
-          onSubmit={async(values, {setSubmitting}) => {
+          onSubmit={async (values, { setSubmitting }) => {
             // same shape as initial values
             // alert(JSON.stringify(values));
             try {
-              const url = "https://api.codingthailand.com/api/register"
+              const url = "https://api.codingthailand.com/api/login";
               const res = await axios.post(url, {
-                name : values.name,
-                email : values.email,
-                password : values.password
-              })
-              alert(res.data.message)
-              navigation.navigate('Home')
+                email: values.email,
+                password: values.password,
+              });
+              alert(res.data.message);
+              navigation.navigate("Home");
             } catch (error) {
               alert(error.response.data.errors.email[0]);
             } finally {
-              setSubmitting(false)
+              setSubmitting(false);
             }
           }}
         >
           {/*//errors ใช้สำหรับการตรวจสอบ state (ถ้าผู้ใช้ไม่กรอกข้อมูลจะให้ error อะไรเกิดขึ้น)*/}
           {/* touched  เมื่อผู้ใช้ไปกดที่ name และเลื่อนเม้าส์ไปด้านนอกช่อง input โดยไม่กรอกข้อมูล*/}
 
-          {({ errors, touched, values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+          {({
+            errors,
+            touched,
+            values,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
             <Form>
               {/* กำหนดให้มีเส้นสีแดงถ้าผู้ใช้ไม่กรอกข้อมูลชื่อ */}
-              <Item
-                fixedLabel
-                error={errors.name && touched.name ? true : false}
-              >
-                <Label>Name</Label>
-                <Input
-                  value={values.name}
-                  onChangeText={handleChange("name")}
-                  onBlur={handleBlur("name")}
-                />
-                {errors.name && touched.name && <Icon name="close-circle" />}
-              </Item>
-              {errors.name && touched.name && (
-                <Item>
-                  <Label style={{ color: "red" }}>{errors.name}</Label>
-                </Item>
-              )}
               <Item
                 fixedLabel
                 error={errors.email && touched.email ? true : false}
@@ -90,7 +78,7 @@ const RegisterScreen = ({navigation}) => {
                   value={values.email}
                   onChangeText={handleChange("email")}
                   onBlur={handleBlur("email")}
-                  keyboardType={'email-address'}
+                  keyboardType={"email-address"}
                 />
                 {errors.email && touched.email && <Icon name="close-circle" />}
               </Item>
@@ -141,4 +129,6 @@ const RegisterScreen = ({navigation}) => {
   );
 };
 
-export default RegisterScreen;
+export default Loginscreen;
+
+const styles = StyleSheet.create({});

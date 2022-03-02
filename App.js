@@ -32,6 +32,7 @@ import MenuScreen from "./screens/MenuScreen";
 import HomeScreen from "./screens/HomeScreen";
 import AboutScreen from "./screens/AboutScreen";
 import Register from "./screens/Register";
+import Loginscreen from "./screens/Loginscreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -55,6 +56,7 @@ function HomeStack() {
 
       <Stack.Screen name="About" component={AboutScreen} />
       <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="Login" component={Loginscreen}/>
     </Stack.Navigator>
   );
 }
