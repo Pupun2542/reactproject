@@ -16,6 +16,8 @@ import {
   Button,
   Icon,
 } from "native-base";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { userStoreContext } from '../context/userContext';
 
 const validateSchema = Yup.object().shape({
   email: Yup.string()
@@ -27,6 +29,8 @@ const validateSchema = Yup.object().shape({
 });
 
 const Loginscreen = ({ navigation }) => {
+    const userStore = React.useContext(userStoreContext);
+
   return (
     <Container>
       <Content padder>
@@ -39,17 +43,31 @@ const Loginscreen = ({ navigation }) => {
           validationSchema={validateSchema}
           onSubmit={async (values, { setSubmitting }) => {
             // same shape as initial values
-            // alert(JSON.stringify(values));
             try {
               const url = "https://api.codingthailand.com/api/login";
               const res = await axios.post(url, {
                 email: values.email,
                 password: values.password,
               });
-              alert(res.data.message);
-              navigation.navigate("Home");
+
+            await AsyncStorage.setItem('@token', JSON.stringify(res.data))
+            const urlprofile = "https://api.codingthailand.com/api/profile"
+            const resprofile = await axios.get(urlprofile, {
+                headers:{
+                    Authorization : 'Bearer '+res.data.access_token
+                }
+            })
+            await AsyncStorage.setItem('@profile', JSON.stringify(resprofile.data.data.user))
+
+            const profile = await AsyncStorage.getItem('@profile');
+            userStore.updateProfile(JSON.parse(profile))
+            
+
+            alert("ล็อคอินเรียบร้อย");
+            navigation.navigate("Home");
             } catch (error) {
-              alert(error.response.data.errors.email[0]);
+              alert(error.response.data.message);
+            //   alert("login fail")
             } finally {
               setSubmitting(false);
             }
@@ -118,7 +136,7 @@ const Loginscreen = ({ navigation }) => {
                 <Text
                   style={{ color: "white", fontSize: 15, fontWeight: "bold" }}
                 >
-                  Register
+                  Login
                 </Text>
               </Button>
             </Form>

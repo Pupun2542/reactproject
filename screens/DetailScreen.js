@@ -17,6 +17,7 @@ import {
 } from "native-base";
 import { FlatList } from "react-native-gesture-handler";
 
+
 const DetailScreen = ({navigation,route}) => {
   const {id, title} = route.params;
 

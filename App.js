@@ -33,6 +33,7 @@ import HomeScreen from "./screens/HomeScreen";
 import AboutScreen from "./screens/AboutScreen";
 import Register from "./screens/Register";
 import Loginscreen from "./screens/Loginscreen";
+import UserStoreProvider from "./context/userContext";
 
 const Tab = createBottomTabNavigator();
 
@@ -56,7 +57,7 @@ function HomeStack() {
 
       <Stack.Screen name="About" component={AboutScreen} />
       <Stack.Screen name="Register" component={Register} />
-      <Stack.Screen name="Login" component={Loginscreen}/>
+      <Stack.Screen name="Login" component={Loginscreen} />
     </Stack.Navigator>
   );
 }
@@ -84,16 +85,18 @@ function ProductStack() {
 
 function App() {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        initialRouteName="HomeStack"
-        drawerPosition="left"
-        drawerContent={(props) => <MenuScreen {...props} />}
-      >
-        <Drawer.Screen name="HomeStack" component={HomeStack} />
-        <Drawer.Screen name="ProductStack" component={ProductStack} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <UserStoreProvider>
+      <NavigationContainer>
+        <Drawer.Navigator
+          initialRouteName="HomeStack"
+          drawerPosition="left"
+          drawerContent={(props) => <MenuScreen {...props} />}
+        >
+          <Drawer.Screen name="HomeStack" component={HomeStack} />
+          <Drawer.Screen name="ProductStack" component={ProductStack} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </UserStoreProvider>
   );
 }
 
