@@ -60,8 +60,17 @@ const MenuScreen = ({ navigation }) => {
               }}
             >
               ยินดีต้อนรับคุณ {userStore.profile.name}
+              </Text>
+              <Text
+              style={{
+                color: "blue",
+                fontSize: 20,
+                fontWeight: "bold",
+              }}>
               อีเมล์ : {userStore.profile.email}
-            </Text>
+              </Text>
+              
+            
           </>
         )}
 
