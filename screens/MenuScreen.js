@@ -60,6 +60,7 @@ const MenuScreen = ({ navigation }) => {
               }}
             >
               ยินดีต้อนรับคุณ {userStore.profile.name}
+              อีเมล์ : {userStore.profile.email}
             </Text>
           </>
         )}
